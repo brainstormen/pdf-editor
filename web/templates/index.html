@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity PDF Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav class="navbar glass">
+        <div class="logo">
+            <i class="fa-solid fa-file-pdf"></i>
+            <span>Antigravity PDF</span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">Editor</a>
+            <a href="#">Tools</a>
+            <a href="#">Settings</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Initial Upload View -->
+        <section id="upload-view" class="view-section active">
+            <div class="hero-text">
+                <h1>Edit your PDFs with <span class="gradient-text">Magic</span></h1>
+                <p>Upload, edit, annotate, and transform your documents instantly.</p>
+            </div>
+            
+            <div class="upload-area glass" id="drop-zone">
+                <input type="file" id="file-input" accept="application/pdf" hidden>
+                <div class="upload-content">
+                    <div class="upload-icon-container">
+                        <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                    </div>
+                    <h2>Drag & Drop your PDF here</h2>
+                    <p>or</p>
+                    <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">
+                        Browse Files
+                    </button>
+                    <p class="file-info">Maximum file size: 50MB</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Editor View (Hidden initially) -->
+        <section id="editor-view" class="view-section hidden">
+            <div class="editor-layout glass">
+                <aside class="sidebar">
+                    <div class="sidebar-header">
+                        <h3>Pages</h3>
+                    </div>
+                    <div class="thumbnails" id="thumbnails-container">
+                        <!-- Thumbnails will be generated here -->
+                        <div class="thumbnail-placeholder"><div class="spinner"></div></div>
+                    </div>
+                </aside>
+                
+                <div class="main-editor">
+                    <div class="toolbar">
+                        <div class="tool-group">
+                            <button class="tool-btn active" title="Select" id="tool-select" data-tool="select"><i class="fa-solid fa-arrow-pointer"></i></button>
+                            <button class="tool-btn" title="Add Text" id="tool-text" data-tool="text"><i class="fa-solid fa-t"></i></button>
+                            <button class="tool-btn" title="Erase/Remove" id="tool-erase" data-tool="erase"><i class="fa-solid fa-eraser"></i></button>
+                        </div>
+                        <div class="tool-group">
+                            <button class="tool-btn" title="Zoom Out" id="zoom-out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                            <span class="zoom-level">100%</span>
+                            <button class="tool-btn" title="Zoom In" id="zoom-in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                        </div>
+                        <div class="tool-group">
+                            <button class="btn btn-secondary" id="close-pdf">Close</button>
+                            <button class="btn btn-primary" id="save-pdf"><i class="fa-solid fa-download"></i> Save</button>
+                        </div>
+                    </div>
+                    
+                    <div class="canvas-container" id="pdf-canvas-container">
+                        <!-- Rendered PDF will appear here -->
+                        <div class="canvas-placeholder">
+                            <i class="fa-regular fa-file-pdf"></i>
+                            <p>Loading document...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/main.js"></script>
+</body>
+</html>
