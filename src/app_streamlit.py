@@ -33,7 +33,8 @@ header {visibility: hidden;}
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: transparent;
+    background-color: var(--background-color, #ffffff);
+    border-top: 1px solid #e6e6e6;
     padding: 10px;
     text-align: center;
     font-size: 14px;
@@ -104,6 +105,21 @@ if uploaded_file is not None:
         text_to_add = st.sidebar.text_area("Text to insert in the drawn box:")
         font_size = st.sidebar.number_input("Font Size", min_value=8, max_value=72, value=16)
 
+    st.sidebar.header("View Settings")
+    view_size = st.sidebar.selectbox(
+        "Canvas Display Size", 
+        ["Desktop (Wide)", "Tablet (Medium)", "Mobile (Small)"],
+        index=0,
+        help="Change this if the document doesn't fit on your screen."
+    )
+    
+    if view_size == "Mobile (Small)":
+        canvas_width = 350
+    elif view_size == "Tablet (Medium)":
+        canvas_width = 600
+    else:
+        canvas_width = 800
+
     # Render current page to image
     page = doc[page_num]
     mat = fitz.Matrix(2.0, 2.0)
@@ -111,8 +127,7 @@ if uploaded_file is not None:
     img_data = pix.tobytes("png")
     bg_image = Image.open(BytesIO(img_data))
 
-    # Canvas width and height based on the image
-    canvas_width = 800
+    # Canvas height based on the image ratio
     canvas_height = int(bg_image.height * (canvas_width / bg_image.width))
 
     # Initialize a canvas key counter if not present
